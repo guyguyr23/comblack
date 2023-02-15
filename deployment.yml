@@ -1,0 +1,60 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-application
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-web
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hothaifaz11/react-app-web
+  template:
+    metadata:
+      labels:
+        app: hothaifaz11/react-app-web
+    spec:
+      containers:
+        - name: hothaifaz11/react-app
+          image: hothaifaz11/react-app
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: nginx-web
+  ports:
+  - name: nginx-service
+    protocol: TCP
+    port: 80
+    targetPort: 32003 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hothaifaz11/react-app
+spec:
+  selector:
+    app.kubernetes.io/name: hothaifaz11/react-app-web
+  ports:
+  - name: nginx-service
+    protocol: TCP
+    port: 3000
+    targetPort: 32004
