@@ -54,7 +54,7 @@ spec:
   selector:
     app.kubernetes.io/name: hothaifaz11/react-app-web
   ports:
-  - name: nginx-service
+  - name: hothaifaz11/react-app-service
     protocol: TCP
     port: 3000
     targetPort: 32004
